@@ -1,4 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+group = 'com.huazidev.lint'
+version = '1.0.1'
 
 android {
     namespace 'com.wangjiang.lint.library'
@@ -20,4 +24,18 @@ dependencies {
 
     implementation project(':lint-checks')
     lintPublish project(':lint-checks')
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.huazidev.lint'
+                artifactId = 'checker'
+                version = '1.0.1'
+            }
+        }
+    }
 }
